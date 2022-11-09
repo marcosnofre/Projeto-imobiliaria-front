@@ -1,28 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-import { AutenticacaoService } from 'src/app/servicos/autenticacao.service';
+import { AutenticacaoService } from "./../../servicos/autenticacao.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
-  username: string;
-  password: string;
+  username: string = "";
+  password: string = "";
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private autenticacaoService: AutenticacaoService
-  ) {
+    private autenticacaoService: AutenticacaoService) {
     if (this.autenticacaoService.currentUserValue) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/']);
     }
   }
 
@@ -38,13 +37,12 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.loginForm.invalid) {
-        return;
+      return;
     }
     this.loading = true;
-    this.autenticacaoService.login(this.loginForm.value).then(
-            (data: any) => {
-                this.router.navigate(['/home']);
-            }).finally(() => {this.loading = false; this.submitted = false; });
+    this.autenticacaoService.login(this.loginForm.value).then((user) => {
+      this.router.navigate(['/home']);
+    }).finally(() => {this.loading = false; this.submitted = false; });
   }
 
 }

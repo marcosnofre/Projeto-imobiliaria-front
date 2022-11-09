@@ -1,35 +1,34 @@
-// Componentes
-import { HttpClient } from '@angular/common/http';
+import { HttpClient} from "@angular/common/http";
 
-// Útil
-import { Constantes } from 'src/app/util/constantes';
+import { Constantes} from "../../util/constantes";
+
 
 export class AuxiliarCrud {
 
-    constructor(public http: HttpClient, public constantes: Constantes, public entidade: string){}
+  constructor(
+    public http: HttpClient
+    , public constantes: Constantes,
+    public entidade: string) {
+  }
 
-    async pesquisar(id?: number) {
-        if (id) {
-            return await this.http.get<any[]>(this.constantes.backUrlBase + this.entidade + id + '/').toPromise();
-        }
-        else {
-            return await this.http.get<any[]>(this.constantes.backUrlBase +
-                this.entidade).toPromise();
-        }
+  async pesquisar (campos: any) {
+    if (campos) {
+      return await this.http.get(this.constantes.backUrlBase + "/" + this.entidade + "/pesquisar", campos).toPromise();
     }
-
-    async adicionar(campos: any) {
-        return await this.http.post<any[]>(this.constantes.backUrlBase + this.entidade
-            ,   campos).toPromise();
+    else {
+      return await this.http.get(this.constantes.backUrlBase + "/" + this.entidade + "/pesquisar").toPromise();
     }
+  }
 
-    async atualizar(campos: any) {
-        return await this.http.patch<any[]>(this.constantes.backUrlBase + this.entidade + campos.id + '/'
-            ,   campos).toPromise();
-    }
+  async adicionar (campos: any) {
+    return await this.http.post(this.constantes.backUrlBase + "/" + this.entidade + "/adicionar", campos).toPromise();
+  }
 
-    async remover(id: number) {
-        return await this.http.delete<any[]>(this.constantes.backUrlBase + this.entidade + id + '/').toPromise();
-    }
+  async atualizar (campos: any) {
+    return await this.http.put(this.constantes.backUrlBase + "/" + this.entidade + "/alterar", campos).toPromise();
+  }
 
+  async remover (campos: any) {
+    return await this.http.delete(this.constantes.backUrlBase + "/" + this.entidade + "/excluir", campos).toPromise();
+  }
 }
