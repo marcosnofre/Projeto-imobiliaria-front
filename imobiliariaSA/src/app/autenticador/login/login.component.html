@@ -5,8 +5,8 @@
         <span></span>
       </div>
       <p></p>
-      <h4 class="mt-0">Autenticacao</h4>
-      <p class="text-muted mb-4">Entre com seu Login</p>
+      <h4 class="mt-0">Autenticação</h4>
+      <p class="text-muted mb-4">Entre com seu login.</p>
       <form [formGroup]="loginForm" id="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="username">Login</label>
@@ -17,13 +17,13 @@
         </div>
         <div class="form-group">
           <label for="password">Senha</label>
-          <input class="form-control" required formControlName="password" type="password" id="password" placeholder="Entre com a senha" [ngClass]="{ 'is-invalid': (submitted) && f.password.errors }">
-          <div *ngIf="(submitted) && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Senha obrigatória.</div>
+          <input class="form-control" formControlName="password" type="password" required id="password" placeholder="Digite aqui a sua senha" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">A senha é obrigatória.</div>
           </div>
         </div>
         <div class="form-group mb-0 text-center">
-          <button class="btn btn-primary btn-block" type="submit">Entrar</button>
+          <button class="btn btn-primary btn-block" type="submit"><i class="mdi mdi-login"></i> Entrar </button>
         </div>
       </form>
     </div>
